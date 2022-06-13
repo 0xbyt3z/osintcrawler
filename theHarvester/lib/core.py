@@ -101,21 +101,8 @@ class Core:
 
     @staticmethod
     def banner() -> None:
-        print('\n\033[93m*******************************************************************')
-        print("*  _   _                                            _             *")
-        print(r"* | |_| |__   ___    /\  /\__ _ _ ____   _____  ___| |_ ___ _ __  *")
-        print(r"* | __|  _ \ / _ \  / /_/ / _` | '__\ \ / / _ \/ __| __/ _ \ '__| *")
-        print(r"* | |_| | | |  __/ / __  / (_| | |   \ V /  __/\__ \ ||  __/ |    *")
-        print(r"*  \__|_| |_|\___| \/ /_/ \__,_|_|    \_/ \___||___/\__\___|_|    *")
-        print('*                                                                 *')
-        print(
-            '* theHarvester {version}{filler}*'.format(version=Core.version(), filler=' ' * (51 - len(Core.version()))))
-        print('* Coded by Christian Martorella                                   *')
-        print('* Edge-Security Research                                          *')
-        print('* cmartorella@edge-security.com                                   *')
-        print('*                                                                 *')
-        print('******************************************************************* \n\n\033[0m')
-
+        '''
+            '''
     @staticmethod
     def get_supportedengines() -> Set[Union[str, Any]]:
         supportedengines = {'anubis',

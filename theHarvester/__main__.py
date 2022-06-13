@@ -583,8 +583,9 @@ async def start(rest_args=None):
             print('\n[*] Twitter Users found: ' + str(len(twitter_people_list_tracker)))
             print('---------------------')
             twitter_people_list_tracker = list(sorted(set(twitter_people_list_tracker)))
-            for usr in twitter_people_list_tracker:
-                print(usr)
+            with open("results/twitter/users.txt","w+") as file:
+                for usr in twitter_people_list_tracker:
+                    file.write(usr+"\n")
 
     if len(linkedin_people_list_tracker) == 0 and 'linkedin' in engines:
         print('\n[*] No LinkedIn users found.\n\n')
@@ -593,8 +594,9 @@ async def start(rest_args=None):
             print('\n[*] LinkedIn Users found: ' + str(len(linkedin_people_list_tracker)))
             print('---------------------')
             linkedin_people_list_tracker = list(sorted(set(linkedin_people_list_tracker)))
-            for usr in linkedin_people_list_tracker:
-                print(usr)
+            with open("results/linkedin/users.txt","w") as file:
+                for usr in linkedin_people_list_tracker:
+                    file.write(usr+"\n")
 
     if len(linkedin_links_tracker) == 0 and ('linkedin' in engines or 'rocketreach' in engines):
         print(f'\n[*] LinkedIn Links found: {len(linkedin_links_tracker)}')
@@ -631,7 +633,10 @@ async def start(rest_args=None):
         print('\n[*] Emails found: ' + str(len(all_emails)))
         print('----------------------')
         all_emails = sorted(list(set(all_emails)))
-        print(('\n'.join(all_emails)))
+        with open("results/emails/users.txt","w+") as file:
+            for email in all_emails:
+                file.write(email+"\n")
+            
 
     if len(all_hosts) == 0:
         print('\n[*] No hosts found.\n\n')
@@ -643,8 +648,9 @@ async def start(rest_args=None):
         full = [host if ':' in host and word in host else word in host.split(':')[0] and host for host in full]
         full = list({host for host in full if host})
         full.sort(key=lambda el: el.split(':')[0])
-        for host in full:
-            print(host)
+        #for host in full:
+            #prevent printing email hosting services
+            #print(host)
         host_ip = [netaddr_ip.format() for netaddr_ip in sorted([netaddr.IPAddress(ip) for ip in ips])]
         await db.store_all(word, host_ip, 'ip', 'DNS-resolver')
 
@@ -778,128 +784,7 @@ async def start(rest_args=None):
             print(f'Finished taking screenshots in {total_time} seconds')
             print('[+] Note there may be leftover chrome processes you may have to kill manually\n')
 
-    # Shodan
-    shodanres = []
-    if shodan is True:
-        import json
-        print('\033[94m[*] Searching Shodan. \033[0m')
-        try:
-            for ip in host_ip:
-                print(('\tSearching for ' + ip))
-                shodan = shodansearch.SearchShodan()
-                shodandict = await shodan.search_ip(ip)
-                await asyncio.sleep(2)
-                rowdata = []
-                for key, value in shodandict[ip].items():
-                    if str(value) == 'Not in Shodan' or 'Error occurred in the Shodan IP search module' in str(value):
-                        break
-                    if isinstance(value, int):
-                        value = str(value)
-
-                    if isinstance(value, list):
-                        value = ', '.join(map(str, value))
-                    rowdata.append(value)
-                shodanres.append(rowdata)
-                print(json.dumps(shodandict[ip], indent=4, sort_keys=True))
-                print('\n')
-        except Exception as e:
-            print(f'\033[93m[!] An error occurred with Shodan: {e} \033[0m')
-    else:
-        pass
-
-    # Here we need to add explosion mode.
-    # We have to take out the TLDs to do this.
-    if args.dns_tld is not False:
-        counter = 0
-        for word in vhost:
-            search_google = googlesearch.SearchGoogle(word, limit, counter)
-            await search_google.process(google_dorking)
-            emails = await search_google.get_emails()
-            hosts = await search_google.get_hostnames()
-            print(emails)
-            print(hosts)
-    else:
-        pass
-
-    if filename != '':
-        print('\n[*] Reporting started.')
-        try:
-            if len(rest_filename) == 0:
-                filename = filename.rsplit('.', 1)[0] + '.xml'
-            else:
-                filename = 'theHarvester/app/static/' + rest_filename.rsplit('.', 1)[0] + '.xml'
-            # TODO use aiofiles if user is using rest api
-            # XML REPORT SECTION
-            with open(filename, 'w+') as file:
-                file.write('<?xml version="1.0" encoding="UTF-8"?><theHarvester>')
-                for x in all_emails:
-                    file.write('<email>' + x + '</email>')
-                for x in full:
-                    host, ip = x.split(':', 1) if ':' in x else (x, '')
-                    if ip and len(ip) > 3:
-                        file.write(f'<host><ip>{ip}</ip><hostname>{host}</hostname></host>')
-                    else:
-                        file.write(f'<host>{host}</host>')
-                for x in vhost:
-                    host, ip = x.split(':', 1) if ':' in x else (x, '')
-                    if ip and len(ip) > 3:
-                        file.write(f'<vhost><ip>{ip} </ip><hostname>{host}</hostname></vhost>')
-                    else:
-                        file.write(f'<vhost>{host}</vhost>')
-                # TODO add Shodan output into XML report
-                file.write('</theHarvester>')
-                print('[*] XML File saved.')
-        except Exception as error:
-            print(f'\033[93m[!] An error occurred while saving the XML file: {error} \033[0m')
-
-        try:
-            # JSON REPORT SECTION
-            filename = filename.rsplit('.', 1)[0] + '.json'
-            # create dict with values for json output
-            json_dict: Dict = dict()
-            # determine if variable exists
-            # it should but just a sanity check
-            if 'ip_list' in locals():
-                if all_ip and len(all_ip) >= 1 and ip_list and len(ip_list) > 0:
-                    json_dict["ips"] = [str(ip) for ip in ip_list]
-
-            if len(all_emails) > 0:
-                json_dict["emails"] = [email for email in all_emails]
-
-            if len(full) > 0:
-                json_dict["hosts"] = [host for host in full]
-
-            if vhost and len(vhost) > 0:
-                json_dict["vhosts"] = [host for host in vhost]
-
-            if len(interesting_urls) > 0:
-                json_dict["interesting_urls"] = interesting_urls
-
-            if len(all_urls) > 0:
-                json_dict["trello_urls"] = all_urls
-
-            if len(total_asns) > 0:
-                json_dict["asns"] = total_asns
-
-            if len(twitter_people_list_tracker) > 0:
-                json_dict["twitter_people"] = twitter_people_list_tracker
-
-            if len(linkedin_people_list_tracker) > 0:
-                json_dict["linkedin_people"] = linkedin_people_list_tracker
-
-            if len(linkedin_links_tracker) > 0:
-                json_dict["linkedin_links"] = linkedin_links_tracker
-
-            json_dict["shodan"] = shodanres
-            with open(filename, 'w+') as fp:
-                # If you do not wish to install ujson you can do
-                # fp.write(json.dumps(json_dict, sort_keys=True)
-                fp.write(ujson.dumps(json_dict, sort_keys=True))
-            print('[*] JSON File saved.')
-        except Exception as er:
-            print(f'\033[93m[!] An error occurred while saving the JSON file: {er} \033[0m')
-        print('\n\n')
-        sys.exit(0)
+    
 
 
 async def entry_point():

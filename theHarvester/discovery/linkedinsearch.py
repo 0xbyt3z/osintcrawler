@@ -26,7 +26,7 @@ class SearchLinkedin:
                 try:
                     self.results = await google_workaround(urly)
                     if isinstance(self.results, bool):
-                        print('Google is blocking your ip and the workaround, returning')
+                        print('Your IP is blocked, restart your router')
                         return
                 except Exception:
                     # google blocked, no useful result
