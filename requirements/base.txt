@@ -21,4 +21,4 @@ slowapi
 -e git+https://github.com/L1ghtn1ng/spyse-python@main#egg=spyse-python
 starlette
 uvicorn
-uvloop platform_system != "Windows"
+uvloop
