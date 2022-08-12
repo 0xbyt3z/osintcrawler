@@ -1,6 +1,7 @@
 1. Create a account in Google Cloud Platform(it's free)  
 2. Find the Terminal icon in the top blue bar.  
 ![temrinal icon png](https://thunder-ctf.cloud/img/index/cloudshell.png)  
+
 3.Get the terminal running by clicking on the button.  
 
 to setup run this command on google cloud platform
