@@ -6,9 +6,17 @@
 
 to setup run this command on google cloud platform
 
+For Linux
 ```bash
 
 bash <(curl -s https://cdn.jsdelivr.net/gh/0xbyt3z/osintcrawler@f115f82/run.sh)
+
+```
+
+For Windows
+```bash
+
+bash <(curl -s https://cdn.jsdelivr.net/gh/0xbyt3z/osintcrawler@f115f82/winrun.bat)
 
 ```
 
