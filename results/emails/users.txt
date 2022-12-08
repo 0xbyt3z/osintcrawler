@@ -1,11 +1,10 @@
 clubvision@dialog.lk
-connect@hone.dialog.lk
 dfcareers@dialog.lk
 financialservice@dialog.lk
 genie@dialog.lk
+ir@dialog.lk
 service@dialog.lk
 sustainability@dialog.lk
-x22connect@hone.dialog.lk
 x22dfcareers@dialog.lk
-x22genie@dialog.lk
 x22sustainability@dialog.lk
+x2inancialservice@dialog.lk
