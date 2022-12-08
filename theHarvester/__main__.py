@@ -633,7 +633,7 @@ async def start(rest_args=None):
         print('\n[*] Emails found: ' + str(len(all_emails)))
         print('----------------------')
         all_emails = sorted(list(set(all_emails)))
-        with open("results/emails/users.txt","w+") as file:
+        with open("results/emails.txt","w+") as file:
             for email in all_emails:
                 file.write(email+"\n")
             
