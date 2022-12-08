@@ -583,7 +583,7 @@ async def start(rest_args=None):
             print('\n[*] Twitter Users found: ' + str(len(twitter_people_list_tracker)))
             print('---------------------')
             twitter_people_list_tracker = list(sorted(set(twitter_people_list_tracker)))
-            with open("results/twitter/users.txt","w+") as file:
+            with open("results/twitter.txt","w+") as file:
                 for usr in twitter_people_list_tracker:
                     file.write(usr+"\n")
 
@@ -594,7 +594,7 @@ async def start(rest_args=None):
             print('\n[*] LinkedIn Users found: ' + str(len(linkedin_people_list_tracker)))
             print('---------------------')
             linkedin_people_list_tracker = list(sorted(set(linkedin_people_list_tracker)))
-            with open("results/linkedin/users.txt","w") as file:
+            with open("results/linkedin.txt","w") as file:
                 for usr in linkedin_people_list_tracker:
                     file.write(usr+"\n")
 
