@@ -14,7 +14,7 @@ def hello():
 async def start():
     try:
         params = request.get_json()
-        #await functions.runCommand(f"python3 main.py -b {params['b']} -d {params['d']}")
+        await functions.runCommand(f"python3 main.py -b {params['b']} -d {params['d']}")
         if(params["b"] == "google"):
             return jsonify(email=functions.getEmails())
         if(params["b"] == "twitter"):
