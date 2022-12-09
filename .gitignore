@@ -1,8 +1,6 @@
 *.idea
 *.pyc
 *.sqlite
-*.html
-*.htm
 *.vscode
 *.xml
 *.json
@@ -15,4 +13,4 @@ dist/
 theHarvester.egg-info
 api-keys.yaml
 .DS_Store
-results/
+

@@ -1,0 +1,6 @@
+connect@hone.dialog.lk
+financialservice@dialog.lk
+genie@dialog.lk
+service@dialog.lk
+x22connect@hone.dialog.lk
+x22genie@dialog.lk
