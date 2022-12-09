@@ -19,3 +19,9 @@ def getTwitter():
     with open("results/twitter.txt") as file:
         lines= file.readlines()
     return lines
+
+def getLinkedin():
+    lines = []
+    with open("results/linkedin.txt") as file:
+        lines= file.readlines()
+    return lines
