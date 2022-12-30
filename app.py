@@ -15,14 +15,30 @@ async def start():
     try:
         params = request.get_json()
         await functions.runCommand(f"python3 main.py -b {params['b']} -d {params['d']}")
-        if(params["b"] == "google"):
-            return jsonify(email=functions.getEmails())
-        if(params["b"] == "twitter"):
-            return jsonify(twitter=functions.getTwitter())
-        if(params["b"] == "linkedin"):
-            return jsonify(linkedin=functions.getLinkedin()())
+        # if(params["b"] == "google"):
+        #     return jsonify(email=functions.getEmails())
+        # if(params["b"] == "twitter"):
+        #     return jsonify(twitter=functions.getTwitter())
+        # if(params["b"] == "linkedin"):
+        #     return jsonify(linkedin=functions.getLinkedin()())
+        return jsonify(email=functions.getEmails(),twitter=functions.getTwitter(),linkedin=functions.getLinkedin())
     except:
         return jsonify(["null"])
+
+@app.route("/read",methods=['POST'])
+async def read():
+    try:
+        return jsonify(email=functions.getEmails(),twitter=functions.getTwitter(),linkedin=functions.getLinkedin())
+    except:
+        return jsonify(["null"])
+
+@app.route("/clear",methods=['POST'])
+async def clear():
+    try:
+        functions.clearFiles()
+        return jsonify(msg="done")
+    except:
+        return jsonify(msg="failed")
 
 @app.route("/reports")
 def reports():

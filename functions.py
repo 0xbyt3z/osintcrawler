@@ -8,6 +8,11 @@ async def CustomTimer():
 async def runCommand(command):
     os.system(command)
 
+def clearFiles():
+    open("results/emails.txt", 'w').close()
+    open("results/twitter.txt", 'w').close()
+    open("results/linkedin.txt", 'w').close()
+
 def getEmails():
     lines = []
     with open("results/emails.txt") as file:

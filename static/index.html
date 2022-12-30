@@ -74,6 +74,36 @@
         render(response);
         document.getElementById("waitmsg").dataset.show = "false";
       };
+
+      const read = async () => {
+        document.getElementById("waitmsg").dataset.show = "true";
+        const response = await fetch("/read", {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "same-origin", // include, *same-origin, omit
+          redirect: "follow", // manual, *follow, error
+          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then((res) => res.json());
+        console.log("read files");
+        render(response);
+        document.getElementById("waitmsg").dataset.show = "false";
+      };
+
+      const clearLog = async () => {
+        document.getElementById("waitmsg").dataset.show = "true";
+        const response = await fetch("/clear", {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          mode: "cors", // no-cors, *cors, same-origin
+          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: "same-origin", // include, *same-origin, omit
+          redirect: "follow", // manual, *follow, error
+          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        }).then((res) => res.json());
+        render(response);
+        console.log(response);
+        document.getElementById("waitmsg").dataset.show = "false";
+      };
     </script>
   </head>
   <body>
@@ -96,6 +126,7 @@
         </div>
       </form>
       <button onclick="start()" class="btn btn-primary">Start</button>
+      <button onclick="read()" class="btn btn-success">Read</button>
       <button onclick="clearLog()" class="btn btn-warning">Clear Log</button>
     </div>
 

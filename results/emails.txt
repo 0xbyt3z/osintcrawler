@@ -4,3 +4,4 @@ genie@dialog.lk
 service@dialog.lk
 x22connect@hone.dialog.lk
 x22genie@dialog.lk
+x22service@dialog.lk
