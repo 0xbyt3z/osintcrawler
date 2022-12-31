@@ -10,4 +10,5 @@ pip3 install uvloop
 pip3 install aiomultiprocess
 pip3 install -r requirements/dev.txt
 
+cd osintcrawler
 python3 app.py
