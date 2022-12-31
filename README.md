@@ -10,7 +10,7 @@ For Linux
 
 ```bash
 
-bash <(curl -s https://cdn.jsdelivr.net/gh/0xbyt3z/osintcrawler/run.sh)
+bash <(curl -s https://cdn.jsdelivr.net/gh/0xbyt3z/osintcrawler@7e5680f/run.sh)
 
 ```
 
@@ -18,7 +18,7 @@ For Windows
 
 ```bash
 
-bash <(curl -s https://cdn.jsdelivr.net/gh/0xbyt3z/osintcrawler/winrun.bat)
+bash <(curl -s https://cdn.jsdelivr.net/gh/0xbyt3z/osintcrawler@7e5680f/winrun.bat)
 
 ```
 
