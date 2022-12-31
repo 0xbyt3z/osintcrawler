@@ -1,5 +1,5 @@
 sudo rm -r ./osintcrawler
-git clone https://github.com/0xbyt3z/osintcrawler.git 
+git clone https://github.com/0xbyt3z/osintcrawler@7e5680f.git 
 python3 --version
 pip3 install aiodns
 pip3 install aiohttp
