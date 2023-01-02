@@ -1,11 +1,9 @@
 # save this as app.py
 import functions
 
-
 from flask import Flask
 from flask import render_template, jsonify, request
 app = Flask(__name__, template_folder='static')
-
 
 @app.route("/")
 def hello():
